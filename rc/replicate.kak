@@ -22,7 +22,7 @@ define-command -override -params 0..1 -docstring %{
   } replicate-send %{
   nop %sh{
     selection=$(printf %s "$kak_selection" \
-              | sed -Eze 's/\\n/\\\n/g' -e 's/\n/\\n/g' -e 's/\$/\\\$/g')
+              | sed -Eze 's/[$^\]/\\&/g' -e 's/\n/\\n/g')
     screen -S "replicate-${1:-$kak_opt_replicate_id}" -X stuff "$selection"
   }
 }
